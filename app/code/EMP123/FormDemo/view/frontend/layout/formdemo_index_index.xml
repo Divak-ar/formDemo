@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Form Demo</title>
+        <css src="EMP123_FormDemo::css/form-demo.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="EMP123\FormDemo\Block\FormDemo" name="formdemo.form" template="EMP123_FormDemo::form.phtml" />
+        </referenceContainer>
+    </body>
+</page>

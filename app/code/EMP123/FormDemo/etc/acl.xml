@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="EMP123_FormDemo::formdemo" title="Form Demo" sortOrder="100">
+                    <resource id="EMP123_FormDemo::demo_grid" title="Demo Grid" sortOrder="10"/>
+                    <resource id="EMP123_FormDemo::demo_grid_save" title="Save Demo Grid" sortOrder="20"/>
+                    <resource id="EMP123_FormDemo::demo_grid_delete" title="Delete Demo Grid" sortOrder="30"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

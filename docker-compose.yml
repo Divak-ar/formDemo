@@ -1,0 +1,48 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+
+  php:
+    image: php:8.1-apache
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    command: >
+      bash -c "
+      apt-get update &&
+      apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libicu-dev libxml2-dev libxslt1-dev libzip-dev unzip curl wget git &&
+      docker-php-ext-configure gd --with-freetype --with-jpeg &&
+      docker-php-ext-install -j\$$(nproc) gd intl pdo_mysql soap xsl zip bcmath sockets &&
+      curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&
+      a2enmod rewrite &&
+      echo 'ServerName localhost' >> /etc/apache2/apache2.conf &&
+      echo '<VirtualHost *:80>' > /etc/apache2/sites-available/magento.conf &&
+      echo '    DocumentRoot /var/www/html' >> /etc/apache2/sites-available/magento.conf &&
+      echo '    <Directory /var/www/html>' >> /etc/apache2/sites-available/magento.conf &&
+      echo '        AllowOverride All' >> /etc/apache2/sites-available/magento.conf &&
+      echo '        Require all granted' >> /etc/apache2/sites-available/magento.conf &&
+      echo '    </Directory>' >> /etc/apache2/sites-available/magento.conf &&
+      echo '</VirtualHost>' >> /etc/apache2/sites-available/magento.conf &&
+      a2ensite magento &&
+      a2dissite 000-default &&
+      chown -R www-data:www-data /var/www/html &&
+      apache2-foreground
+      "
+
+volumes:
+  mysql_data:

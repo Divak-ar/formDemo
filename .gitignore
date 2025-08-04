@@ -1,0 +1,72 @@
+# Magento 2 generated and runtime
+/var/
+/generated/
+/pub/static/*
+!/pub/static/.htaccess
+/app/etc/env.php         # contains environment-specific secrets
+/app/etc/config.php      # optional: if you keep environment overrides locally
+
+# Composer dependencies (reinstall via composer install)
+ /vendor/
+
+# Node (if you ever add frontend tooling)
+/node_modules/
+
+# Magento cache, logs, session
+/.cache/
+/pub/media/catalog/product/cache/
+/pub/media/tmp/
+/pub/media/customer/
+/pub/media/catalog/product/placeholder/
+/var/log/
+/var/report/
+/var/session/
+
+# Deployment and build artifacts
+/*.log
+*.log.*
+/*.cache
+
+# Docker-related (keep compose files, but ignore auto-generated overrides if any)
+# If you have local env overrides:
+*.env.local
+.env.*.local
+
+# VSCode settings (optional: you can include or ignore depending on team)
+/.vscode/
+
+# IDEs
+/.idea/
+/*.sublime-workspace
+/*.sublime-project
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# PHPStorm
+/.phpstorm.meta.php
+
+# MailHog / temp
+# (typically no need unless you generate files locally)
+# *.tmp
+
+# Backup files
+*~ 
+*.swp
+*.bak
+*.orig
+
+# Magento secret key generation (if you store any)
+/app/etc/env.php
+
+# Optional: ignore test output or coverage if you add tests
+/coverage/
+/tests/_output/
+
+
+*txt
+.github/
+.github
+

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="EMP123_FormDemo::formdemo" title="Form Demo" module="EMP123_FormDemo" sortOrder="100" resource="EMP123_FormDemo::formdemo"/>
+        <add id="EMP123_FormDemo::demo_grid" title="Demo Grid" module="EMP123_FormDemo" sortOrder="10" action="formdemo/demo/index" resource="EMP123_FormDemo::demo_grid" parent="EMP123_FormDemo::formdemo"/>
+    </menu>
+</config>
