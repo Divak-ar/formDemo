@@ -1,72 +1,104 @@
-# Magento 2 generated and runtime
+# Magento 2 & Docker Development Environment
+
+# Magento 2 specific
 /var/
+/pub/media/
+/pub/static/
 /generated/
-/pub/static/*
-!/pub/static/.htaccess
-/app/etc/env.php         # contains environment-specific secrets
-/app/etc/config.php      # optional: if you keep environment overrides locally
+/vendor/
+/dev/tests/
+/phpserver/
+/app/etc/env.php
+/app/etc/config.php
 
-# Composer dependencies (reinstall via composer install)
- /vendor/
-
-# Node (if you ever add frontend tooling)
-/node_modules/
-
-# Magento cache, logs, session
-/.cache/
-/pub/media/catalog/product/cache/
-/pub/media/tmp/
-/pub/media/customer/
-/pub/media/catalog/product/placeholder/
-/var/log/
-/var/report/
-/var/session/
-
-# Deployment and build artifacts
-/*.log
-*.log.*
-/*.cache
-
-# Docker-related (keep compose files, but ignore auto-generated overrides if any)
-# If you have local env overrides:
-*.env.local
+# Docker & Environment
+docker-compose.override.yml
+.env
+.env.local
 .env.*.local
 
-# VSCode settings (optional: you can include or ignore depending on team)
-/.vscode/
+# Database
+*.sql
+*.sql.gz
+mysql_data/
 
-# IDEs
-/.idea/
-/*.sublime-workspace
-/*.sublime-project
+# Logs
+/var/log/
+*.log
 
-# OS files
-Thumbs.db
-Desktop.ini
+# IDE & Editor
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+*~
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# PHPStorm
-/.phpstorm.meta.php
+# PHP
+composer.phar
+composer.lock
+/vendor/
 
-# MailHog / temp
-# (typically no need unless you generate files locally)
-# *.tmp
+# Node modules (if using)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+/build/
+/dist/
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Magento generated
+app/etc/config.local.xml
+app/etc/local.xml
+errors/local.xml
+/media/
+/sitemap.xml
+/.modman/
+
+# Development tools
+/tools/
+/dev/tools/
 
 # Backup files
-*~ 
-*.swp
 *.bak
-*.orig
+*.backup
 
-# Magento secret key generation (if you store any)
-/app/etc/env.php
+# Lock files
+*.lock
 
-# Optional: ignore test output or coverage if you add tests
-/coverage/
-/tests/_output/
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
 
-
-*txt
-.github/
-.github
+# Keep important files
+!.gitignore
+!README.md
+!app/code/
+!docker-compose.yml
 

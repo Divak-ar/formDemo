@@ -73,7 +73,14 @@
                     </confirm>
                     <url path="formdemo/demo/massDelete"/>
                     <type>delete</type>
-                    <label translate="true">Delete</label>
+                    <label translate="true">Delete All Selected</label>
+                </settings>
+            </action>
+            <action name="email">
+                <settings>
+                    <url path="formdemo/demo/massEmail"/>
+                    <type>email</type>
+                    <label translate="true">Send Email to Selected</label>
                 </settings>
             </action>
         </massaction>
@@ -119,6 +126,7 @@
                 <editor>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-alpha" xsi:type="boolean">true</rule>
                     </validation>
                     <editorType>text</editorType>
                 </editor>
@@ -131,6 +139,7 @@
                 <editor>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-alpha" xsi:type="boolean">true</rule>
                     </validation>
                     <editorType>text</editorType>
                 </editor>
@@ -163,14 +172,15 @@
                 </editor>
             </settings>
         </column>
-        <column name="gender" class="EMP123\FormDemo\Ui\Component\Listing\Column\Gender">
+        <column name="gender">
             <settings>
+                <options class="EMP123\FormDemo\Ui\Component\Listing\Column\Gender"/>
                 <filter>select</filter>
                 <editor>
-                    <editorType>select</editorType>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
+                    <editorType>select</editorType>
                 </editor>
                 <dataType>select</dataType>
                 <label translate="true">Gender</label>
@@ -182,6 +192,7 @@
                 <editor>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-phoneStrict" xsi:type="boolean">true</rule>
                     </validation>
                     <editorType>text</editorType>
                 </editor>

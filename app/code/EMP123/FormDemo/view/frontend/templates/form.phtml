@@ -1,129 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Demo - Magento 2 Module</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
-        .form-demo-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #333; margin-bottom: 30px; text-align: center; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
-        label.required::after { content: " *"; color: #e74c3c; }
-        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
-        .form-control:focus { outline: none; border-color: #3498db; box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); }
-        .btn { background: #3498db; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
-        .btn:hover { background: #2980b9; }
-        .messages { margin-top: 20px; padding: 15px; border-radius: 4px; }
-        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .nav { text-align: center; margin-bottom: 20px; }
-        .nav a { margin: 0 10px; color: #3498db; text-decoration: none; }
-        .nav a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-    <div class="nav">
-        <a href="/">Home</a> | 
-        <a href="/formdemo/index/index">Frontend Form</a> | 
-        <a href="/admin/formdemo/demo/index">Admin Grid</a> | 
-        <a href="/info.php">PHP Info</a>
-    </div>
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+?>
+<div class="form-demo-container">
+    <h1><?= __('Customer Information Form') ?></h1>
     
-    <div class="form-demo-container">
-        <h1>Form Demo</h1>
+    <div id="form-messages" class="messages" style="display: none;"></div>
+    
+    <form id="form-demo" action="<?= $block->getFormAction() ?>" method="post">
+        <div class="form-group">
+            <label for="first_name" class="required"><?= __('First Name') ?></label>
+            <input type="text" 
+                   id="first_name" 
+                   name="first_name" 
+                   class="form-control" 
+                   pattern="[A-Za-z\s]+" 
+                   title="Only letters and spaces are allowed"
+                   required>
+            <div class="error-message"></div>
+        </div>
         
-        <form id="form-demo" action="/formdemo/index/submit" method="post">
-            <div class="form-group">
-                <label for="first_name" class="required">First Name</label>
-                <input type="text" id="first_name" name="first_name" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="last_name" class="required">Last Name</label>
-                <input type="text" id="last_name" name="last_name" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email" class="required">Email</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="date_of_birth" class="required">Date of Birth</label>
-                <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="gender" class="required">Gender</label>
-                <select id="gender" name="gender" class="form-control" required>
-                    <option value="">Please select...</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="telephone" class="required">Telephone</label>
-                <input type="tel" id="telephone" name="telephone" class="form-control" required>
-            </div>
-            
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">
-                    <span>Submit</span>
-                </button>
-            </div>
-        </form>
+        <div class="form-group">
+            <label for="last_name" class="required"><?= __('Last Name') ?></label>
+            <input type="text" 
+                   id="last_name" 
+                   name="last_name" 
+                   class="form-control" 
+                   pattern="[A-Za-z\s]+" 
+                   title="Only letters and spaces are allowed"
+                   required>
+            <div class="error-message"></div>
+        </div>
         
-        <div id="form-messages" class="messages" style="display: none;"></div>
-    </div>
+        <div class="form-group">
+            <label for="email" class="required"><?= __('Email') ?></label>
+            <input type="email" id="email" name="email" class="form-control" required>
+            <div class="error-message"></div>
+        </div>
+        
+        <div class="form-group">
+            <label for="date_of_birth" class="required"><?= __('Date of Birth') ?></label>
+            <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" required>
+            <div class="error-message"></div>
+        </div>
+        
+        <div class="form-group">
+            <label for="gender" class="required"><?= __('Gender') ?></label>
+            <select id="gender" name="gender" class="form-control" required>
+                <option value=""><?= __('Please select...') ?></option>
+                <?php foreach ($block->getGenderOptions() as $value => $label): ?>
+                    <option value="<?= $block->escapeHtmlAttr($value) ?>"><?= $block->escapeHtml($label) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <div class="error-message"></div>
+        </div>
+        
+        <div class="form-group">
+            <label for="telephone" class="required"><?= __('Telephone') ?></label>
+            <input type="tel" 
+                   id="telephone" 
+                   name="telephone" 
+                   class="form-control" 
+                   pattern="[0-9\+\-\s\(\)]+" 
+                   title="Only numbers, spaces, +, -, (, ) are allowed"
+                   required>
+            <div class="error-message"></div>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <?= __('Submit Form') ?>
+            </button>
+        </div>
+        
+        <div class="form-actions" style="margin-top: 10px;">
+            <button type="button" id="send-email-btn" class="btn btn-secondary">
+                <?= __('Send Test Email') ?>
+            </button>
+        </div>
+    </form>
+</div>
 
-    <script>
-        document.getElementById('form-demo').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            fetch('/formdemo/index/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
-                const messagesDiv = document.getElementById('form-messages');
-                messagesDiv.style.display = 'block';
-                
-                if (result.success) {
-                    messagesDiv.innerHTML = '<div class="success">' + result.message + '</div>';
-                    this.reset();
-                } else {
-                    messagesDiv.innerHTML = '<div class="error">' + result.errors.join('<br>') + '</div>';
-                }
-            })
-            .catch(error => {
-                const messagesDiv = document.getElementById('form-messages');
-                messagesDiv.style.display = 'block';
-                messagesDiv.innerHTML = '<div class="error">An error occurred: ' + error.message + '</div>';
-            });
-        });
-    </script>
-</body>
-</html>
+<style>
+    .form-demo-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { color: #333; margin-bottom: 30px; text-align: center; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+    label.required::after { content: " *"; color: #e74c3c; }
+    .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; }
+    .form-control:focus { outline: none; border-color: #3498db; box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); }
+    .form-control.error { border-color: #e74c3c; background-color: #fff5f5; }
+    .error-message { color: #e74c3c; font-size: 14px; margin-top: 5px; display: none; }
+    .btn { background: #3498db; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; transition: all 0.3s; margin-bottom: 10px; }
+    .btn:hover { background: #2980b9; }
+    .btn:disabled { background: #bdc3c7; cursor: not-allowed; }
+    .btn-secondary { background: #6c757d; }
+    .btn-secondary:hover { background: #5a6268; }
+    .messages { margin-top: 20px; padding: 15px; border-radius: 4px; }
+    .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+</style>
 
 <script>
 require(['jquery', 'mage/url'], function($, urlBuilder) {
+    
+    // Enhanced form validation
+    function validateForm() {
+        let isValid = true;
+        const inputs = $('#form-demo input, #form-demo select');
+        
+        // Clear previous errors
+        $('.error-message').hide().text('');
+        $('.form-control').removeClass('error');
+        
+        inputs.each(function() {
+            const $input = $(this);
+            const value = $input.val().trim();
+            const fieldName = $input.attr('name');
+            const $errorElement = $input.siblings('.error-message');
+            
+            // Required field validation
+            if (!value) {
+                showError($input, $errorElement, fieldName.replace('_', ' ').toUpperCase() + ' is required');
+                isValid = false;
+            } else {
+                // Specific validations
+                switch(fieldName) {
+                    case 'first_name':
+                    case 'last_name':
+                        if (value.length < 2) {
+                            showError($input, $errorElement, 'Name must be at least 2 characters long');
+                            isValid = false;
+                        } else if (!/^[a-zA-Z\s]+$/.test(value)) {
+                            showError($input, $errorElement, 'Name can only contain letters and spaces');
+                            isValid = false;
+                        }
+                        break;
+                    case 'email':
+                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                            showError($input, $errorElement, 'Please enter a valid email address');
+                            isValid = false;
+                        }
+                        break;
+                    case 'telephone':
+                        const cleanPhone = value.replace(/\D/g, '');
+                        if (cleanPhone.length < 10 || cleanPhone.length > 15) {
+                            showError($input, $errorElement, 'Please enter a valid phone number (10-15 digits)');
+                            isValid = false;
+                        }
+                        break;
+                    case 'date_of_birth':
+                        const today = new Date();
+                        const dob = new Date(value);
+                        const age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
+                        if (age < 13 || age > 120) {
+                            showError($input, $errorElement, 'Age must be between 13 and 120 years');
+                            isValid = false;
+                        }
+                        break;
+                }
+            }
+        });
+        
+        return isValid;
+    }
+
+    function showError($input, $errorElement, message) {
+        $input.addClass('error');
+        $errorElement.text(message).show();
+    }
+
+    // Form submission
     $('#form-demo').on('submit', function(e) {
         e.preventDefault();
         
-        var formData = $(this).serialize();
-        var submitUrl = $(this).attr('action');
+        if (!validateForm()) {
+            return;
+        }
+        
+        const $submitBtn = $(this).find('button[type="submit"]');
+        $submitBtn.prop('disabled', true).text('Submitting...');
+        
+        const formData = $(this).serialize();
+        const submitUrl = $(this).attr('action');
         
         $.ajax({
             url: submitUrl,
@@ -134,10 +194,11 @@ require(['jquery', 'mage/url'], function($, urlBuilder) {
             success: function(response) {
                 $('#form-messages').show();
                 if (response.success) {
-                    $('#form-messages').html('<div class="message-success success message"><div>' + response.message + '</div></div>');
+                    $('#form-messages').html('<div class="success message">✅ ' + response.message + '</div>');
                     $('#form-demo')[0].reset();
                 } else {
-                    $('#form-messages').html('<div class="message-error error message"><div>' + response.message + '</div></div>');
+                    const errorMsg = response.errors ? response.errors.join('<br>') : response.message;
+                    $('#form-messages').html('<div class="error message">❌ ' + errorMsg + '</div>');
                 }
                 
                 $('html, body').animate({
@@ -145,9 +206,54 @@ require(['jquery', 'mage/url'], function($, urlBuilder) {
                 }, 500);
             },
             error: function() {
-                $('#form-messages').show().html('<div class="message-error error message"><div>An error occurred. Please try again.</div></div>');
+                $('#form-messages').show().html('<div class="error message">❌ An error occurred. Please try again.</div>');
             }
+        }).always(function() {
+            $submitBtn.prop('disabled', false).text('Submit Form');
         });
+    });
+
+    // Test email button
+    $('#send-email-btn').on('click', function() {
+        const $btn = $(this);
+        $btn.prop('disabled', true).text('Sending...');
+        
+        $.ajax({
+            url: urlBuilder.build('formdemo/index/testEmail'),
+            type: 'POST',
+            dataType: 'json',
+            showLoader: true,
+            success: function(response) {
+                $('#form-messages').show();
+                if (response.success) {
+                    $('#form-messages').html('<div class="success message">✅ ' + response.message + '</div>');
+                } else {
+                    $('#form-messages').html('<div class="error message">❌ ' + response.message + '</div>');
+                }
+            },
+            error: function() {
+                $('#form-messages').show().html('<div class="error message">❌ Failed to send test email.</div>');
+            }
+        }).always(function() {
+            $btn.prop('disabled', false).text('Send Test Email');
+        });
+    });
+
+    // Real-time validation
+    $('.form-control').on('blur', function() {
+        validateForm();
+    });
+
+    // Prevent numbers in name fields
+    $('#first_name, #last_name').on('input', function() {
+        this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+    });
+
+    // Allow only numbers and phone characters in telephone
+    $('#telephone').on('input', function() {
+        this.value = this.value.replace(/[^0-9\+\-\s\(\)]/g, '');
     });
 });
 </script>
+                    }
+
